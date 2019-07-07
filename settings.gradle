@@ -1,0 +1,11 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+    }
+}
+
+rootProject.name = 'example-service'
+
+include "service"
+include "service-model"
+include "service-api-soap"

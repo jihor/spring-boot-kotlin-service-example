@@ -1,0 +1,5 @@
+dependencies {
+    compile project(":service-model"),
+            'javax.xml.bind:jaxb-api'
+    compileOnly 'javax.jws:javax.jws-api'
+}

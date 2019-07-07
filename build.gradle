@@ -1,0 +1,140 @@
+plugins {
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE' apply false
+}
+
+ext {
+    branch = System.getProperty("branch", "unknown")
+    buildNumber = System.getProperty("build")
+    isRelease = System.getProperty("isRelease", "false").toBoolean()
+    if (isRelease) {
+        assert buildNumber, "Build number can't be null in release build"
+    }
+    artifactVersion = releaseVersion + (isRelease ? ".$buildNumber" : "-SNAPSHOT")
+
+// allow releases only on master, allow snapshots everywhere
+    publishingEnabled = isRelease ? (branch == "master") : true
+    logger.lifecycle "${isRelease ? "Release" : "Snapshot"} artifact publishing ${publishingEnabled ? "enabled" : "disabled"}. Branch [$branch], version [$artifactVersion]"
+    dockerRepositoryName = isRelease ? "releases" : "snapshots"
+}
+
+Properties subprojectProps = new Properties()
+
+subprojects {
+
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+
+    group = 'ru.rgs'
+    sourceCompatibility = '11'
+
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:Greenwich.RELEASE"
+            mavenBom "org.testcontainers:testcontainers-bom:1.11.1"
+            mavenBom "org.jetbrains.kotlin:kotlin-bom:1.3.41"
+        }
+        dependencies {
+            dependency "io.swagger:swagger-annotations:1.5.22"
+            dependency "org.projectlombok:lombok:1.18.8"
+
+            dependency "org.apache.commons:commons-lang3:3.9"
+            dependency "commons-codec:commons-codec:1.12"
+            dependency 'com.google.guava:guava:28.0-jre'
+
+            dependency 'org.apache.cxf:cxf-spring-boot-starter-jaxws:3.3.2'
+            dependency 'javax.jws:javax.jws-api:1.1'
+            dependency 'javax.xml.bind:jaxb-api:2.3.1'
+            dependency 'javax.xml.ws:jaxws-api:2.3.1'
+            dependency 'com.sun.activation:javax.activation:1.2.0'
+
+            dependency 'io.projectreactor:reactor-core:3.2.10.RELEASE'
+
+            dependency "org.junit.jupiter:junit-jupiter-api:5.4.2"
+            dependency "org.junit.jupiter:junit-jupiter-engine:5.4.2"
+            dependency 'org.junit.platform:junit-platform-engine:1.4.2'
+            dependency 'org.junit.platform:junit-platform-commons:1.4.2'
+            dependency "org.skyscreamer:jsonassert:1.5.0"
+        }
+    }
+
+    dependencies {
+        annotationProcessor 'org.projectlombok:lombok'
+    }
+
+    Properties localProps = new Properties()
+    String projectName = it.name
+
+    File settingsFile = file(extraSettingsFileName)
+    if (settingsFile.exists()) {
+        settingsFile.withInputStream { stream -> localProps.load(stream) }
+
+        localProps.each { key, value ->
+            logger.lifecycle("Project [$projectName] property [$key] value [$value]")
+            subprojectProps.setProperty("$projectName.$key", value)
+        }
+    } else {
+        logger.lifecycle("Extra settings file $extraSettingsFileName not found for project $projectName, no publishing will be done for this project")
+    }
+
+
+    test {
+        useJUnitPlatform()
+        testLogging.showStandardStreams = true
+//        testLogging {
+//            events "PASSED", "FAILED", "SKIPPED", "STANDARD_OUT", "STANDARD_ERROR"
+//        }
+
+    }
+
+    // set up Maven publishing
+    if (subprojectProps.getProperty("${it.name}.useMavenPublish") == "true") {
+        apply plugin: 'maven-publish'
+
+        if (publishingEnabled) {
+            task sourceJar(type: Jar) {
+                from sourceSets.main.allJava
+            }
+            publishing {
+                publications {
+                    toMaven(MavenPublication) {
+                        groupId project.group
+                        artifactId project.name
+                        version artifactVersion
+                        from components.java
+
+                        artifact sourceJar {
+                            classifier "sources"
+                        }
+                    }
+                }
+
+                repositories {
+                    maven {
+                        credentials {
+                            username "kek"
+                            password "lol"
+                        }
+                        if (artifactVersion.endsWith("SNAPSHOT")) {
+                            url "http://maven.repo.org/snapshots"
+                        } else {
+                            url "http://maven.repo.org/releases"
+                        }
+                    }
+                }
+            }
+        }
+    } else {
+        task publish {} // create an empty publishing task
+    }
+
+}

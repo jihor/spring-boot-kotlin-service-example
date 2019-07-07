@@ -1,0 +1,7 @@
+// service model should be java8 compatible (because it used by external systems written on java8)
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+dependencies {
+    annotationProcessor 'org.projectlombok:lombok'
+    compileOnly "io.swagger:swagger-annotations"
+}
