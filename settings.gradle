@@ -9,3 +9,5 @@ rootProject.name = 'example-service'
 include "service"
 include "service-model"
 include "service-api-soap"
+include "system-a-api"
+include "mocks"

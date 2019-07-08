@@ -1,0 +1,25 @@
+plugins {
+    id "no.nils.wsdl2java" version "0.10"
+}
+
+dependencies {
+    def jaxWsLibs = ['com.sun.xml.bind:jaxb-xjc',
+            'javax.xml.bind:jaxb-api',
+            'javax.xml.ws:jaxws-api',
+            'org.apache.cxf:cxf-rt-wsdl',
+            'javax.jws:javax.jws-api']
+    wsdl2java jaxWsLibs
+    implementation jaxWsLibs
+}
+
+wsdl2javaExt {
+    cxfVersion = property("cxfVersion")
+}
+
+wsdl2java {
+    wsdlsToGenerate = [[
+                               "-validate",
+                               "-wsdlLocation", "wsdl/FicoService.wsdl",
+                               "$projectDir/src/main/resources/wsdl/FicoService.wsdl"
+                       ]]
+}

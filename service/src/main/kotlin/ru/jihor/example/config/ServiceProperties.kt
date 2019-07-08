@@ -18,4 +18,7 @@ class ServiceProperties {
     @Min(100)
     lateinit var timeout: Integer
 
+    @NotNull
+    lateinit var systemAEndpoint: String
+
 }

@@ -29,16 +29,13 @@ fun badRequestResponse(request: Request?, codedErrors: CodedErrors): Response {
     }
 }
 
-fun successfulResponse(request: Request?, ficoScore: BigDecimal, lastUpdated: LocalDateTime): Response {
+fun successfulResponse(request: Request?, data: ResponseBusinessData): Response {
     return Response().apply {
         techData = ResponseTechData().apply {
             correlationId = request?.techData?.correlationId
             responseCode = OK
         }
-        businessData = ResponseBusinessData().apply {
-            this.ficoScore = ficoScore
-            this.lastUpdated = lastUpdated
-        }
+        businessData = data
     }
 }
 

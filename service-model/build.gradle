@@ -3,5 +3,5 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 dependencies {
     annotationProcessor 'org.projectlombok:lombok'
-    compileOnly "io.swagger:swagger-annotations"
+    implementation "io.swagger:swagger-annotations"
 }

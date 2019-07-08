@@ -16,7 +16,7 @@ import javax.xml.ws.Endpoint
  *         Created on 07.07.2019
  */
 @Configuration
-class CxfConfiguration(private val springBus: SpringBus) {
+class CxfServiceConfiguration(private val springBus: SpringBus) {
 
     @Bean
     fun loggingInterceptor(): SoapMdcPreparingInterceptor {
