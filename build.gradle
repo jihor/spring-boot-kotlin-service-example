@@ -59,6 +59,9 @@ subprojects {
 
             dependency 'io.projectreactor:reactor-core:3.2.10.RELEASE'
 
+            dependency "io.springfox:springfox-swagger2:2.9.2"
+            dependency "io.springfox:springfox-swagger-ui:2.9.2"
+
             dependency "org.junit.jupiter:junit-jupiter-api:5.4.2"
             dependency "org.junit.jupiter:junit-jupiter-engine:5.4.2"
             dependency 'org.junit.platform:junit-platform-engine:1.4.2'
