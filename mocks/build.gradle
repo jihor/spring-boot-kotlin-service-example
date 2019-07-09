@@ -9,6 +9,7 @@ plugins {
 
 dependencies {
     implementation project(":system-a-api"),
+            project(":system-b-api"),
             "org.jetbrains.kotlin:kotlin-stdlib-jdk8",
             "org.jetbrains.kotlin:kotlin-reflect",
             "org.springframework.boot:spring-boot-starter-web",

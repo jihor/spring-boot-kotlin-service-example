@@ -14,7 +14,7 @@ import javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY
  *         Created on 09.07.2019
  */
 @Configuration
-class CxfClientConfiguration {
+class SystemAClientConfiguration {
     @Autowired
     lateinit var serviceProperties: ServiceProperties
 

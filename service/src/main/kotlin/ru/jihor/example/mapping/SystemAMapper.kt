@@ -6,6 +6,8 @@ import org.mapstruct.Mapping
 import ru.jihor.example.model.request.RequestBusinessData
 import ru.jihor.example.model.response.ResponseBusinessData
 
+typealias SystemARequest = com.system_a.fico_scoring.Request
+typealias SystemAResponse= com.system_a.fico_scoring.Response
 /**
  *
  * @author jihor (jihor@ya.ru)
@@ -15,10 +17,9 @@ import ru.jihor.example.model.response.ResponseBusinessData
 interface SystemAMapper {
 
     @Mapping(expression = "java(ru.jihor.example.mapping.MappingUtilsKt.birthDateToAge(requestBusinessData.getBirthDate()))", target = "age")
-    fun convertToSystemARequest(requestBusinessData: RequestBusinessData): com.system_a.fico_scoring.Request
+    fun convertToSystemARequest(requestBusinessData: RequestBusinessData): SystemARequest
 
-    @InheritInverseConfiguration
     @Mapping(source = "score", target = "ficoScore")
-    fun convertFromSystemAResponse(response: com.system_a.fico_scoring.Response): ResponseBusinessData
+    fun convertFromSystemAResponse(response: SystemAResponse): ResponseBusinessData
 
 }

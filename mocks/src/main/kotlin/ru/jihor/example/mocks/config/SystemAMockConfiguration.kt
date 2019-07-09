@@ -13,7 +13,7 @@ import javax.xml.ws.Endpoint
  *         Created on 07.07.2019
  */
 @Configuration
-class CxfServiceConfiguration(private val springBus: SpringBus) {
+class SystemAMockConfiguration(private val springBus: SpringBus) {
 
     @Bean
     fun endpoint(ficoService: FicoService): Endpoint {
