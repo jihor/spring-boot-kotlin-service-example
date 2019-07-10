@@ -21,6 +21,7 @@ dependencies {
             "org.springframework.boot:spring-boot-starter-web",
             "org.springframework.boot:spring-boot-starter-webflux",
             "org.apache.cxf:cxf-spring-boot-starter-jaxws",
+            'ru.jihor.spel-gates-spring-boot:spel-gates-spring-boot-starter',
             "com.playtika.reactivefeign:feign-reactor",
             "com.playtika.reactivefeign:feign-reactor-webclient",
             "com.playtika.reactivefeign:feign-reactor-spring-configuration",

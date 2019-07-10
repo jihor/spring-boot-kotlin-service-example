@@ -34,7 +34,7 @@ subprojects {
     }
 
     repositories {
-        mavenCentral()
+        jcenter()
     }
 
     dependencyManagement {
@@ -53,6 +53,7 @@ subprojects {
             dependency "com.google.guava:guava:28.0-jre"
             dependency "org.mapstruct:mapstruct:$mapstructVersion"
             dependency "org.mapstruct:mapstruct-processor:$mapstructVersion"
+            dependency 'ru.jihor.spel-gates-spring-boot:spel-gates-spring-boot-starter:2.0.1'
 
             dependency "org.apache.cxf:cxf-spring-boot-starter-jaxws:$cxfVersion"
             dependency "org.apache.cxf:cxf-rt-wsdl:$cxfVersion"

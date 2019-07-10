@@ -48,3 +48,13 @@ fun exceptionResponse(request: Request?, e: Exception): Response {
         }
     }
 }
+
+fun notAllowedResponse(request: Request?): Response {
+    return Response().apply {
+        techData = ResponseTechData().apply {
+            correlationId = request?.techData?.correlationId
+            responseCode = NOT_ALLOWED
+            errorDescription = "Request blocked by business rules"
+        }
+    }
+}

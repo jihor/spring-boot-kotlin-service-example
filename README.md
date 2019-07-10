@@ -11,10 +11,11 @@ Uses Spring Boot 5, Java 11, Kotlin 1.3
 * "External" SOAP service invocation using CXF
 * MapStruct
 * "External" REST service invocation using WebClient
+* SpEL Gates
 
 ### To do:
-* Add SpEL Gates
 * Merge 2 async responses using Reactor
+* Add logging, for God's sake!
 * Error handling in async actions
 * ~~Hystrix~~ Resilience4j
 * Base UI 
