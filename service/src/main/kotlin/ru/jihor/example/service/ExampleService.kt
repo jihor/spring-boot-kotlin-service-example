@@ -2,11 +2,13 @@ package ru.jihor.example.service
 
 import org.mapstruct.factory.Mappers
 import org.springframework.stereotype.Service
+import reactor.core.publisher.Mono
 import ru.jihor.example.feign.SystemBFeignClient
 import ru.jihor.example.mapping.SystemAMapper
 import ru.jihor.example.mapping.SystemBMapper
 import ru.jihor.example.model.request.Request
 import ru.jihor.example.model.response.Response
+import ru.jihor.example.model.response.ResponseBusinessData
 import ru.jihor.example.util.successfulResponse
 
 typealias SystemAService = com.system_a.fico_scoring.FicoService
@@ -28,18 +30,24 @@ class ExampleServiceImpl(private val systemAService: SystemAService,
     val systemBMapper = Mappers.getMapper(SystemBMapper::class.java)
 
     override fun getData(request: Request): Response {
-        // TODO collect 2 systems using Reactor, write a facade over this map-invoke-map logic
-        val systemARequest = systemAMapper.convertToSystemARequest(request.businessData)
-        val systemAResponse = systemAService.getScore(systemARequest)
-        val responseBusinessDataA = systemAMapper.convertFromSystemAResponse(systemAResponse)
+        return Mono.zip(getSystemAResponseMono(request), getSystemBResponseMono(request)) { a, b -> if (a.ficoScore > b.ficoScore) a else b }
+                .map { successfulResponse(request, it) }
+                .block()!!
+    }
 
-        val systemBRequest = systemBMapper.convertToSystemBRequest(request.businessData)
-        val systemBResponse = systemBService.getScore(systemBRequest).block()!!
-        val responseBusinessDataB = systemBMapper.convertFromSystemBResponse(systemBResponse)
+    private fun getSystemBResponseMono(request: Request): Mono<ResponseBusinessData> {
+        return Mono.just(request.businessData)
+                .map(systemBMapper::convertToSystemBRequest)
+                .flatMap(systemBService::getScore)
+                .map(systemBMapper::convertFromSystemBResponse)
+    }
 
-        val data = if (responseBusinessDataA.ficoScore > responseBusinessDataB.ficoScore) responseBusinessDataA else responseBusinessDataB
-        return successfulResponse(request, data)
-//        return successfulResponse(request, BigDecimal.ONE, LocalDateTime.now())
+    private fun getSystemAResponseMono(request: Request): Mono<ResponseBusinessData> {
+        return Mono.create { sink ->
+            systemAService.getScoreAsync(systemAMapper.convertToSystemARequest(request.businessData)) { response ->
+                sink.success(systemAMapper.convertFromSystemAResponse(response.get()))
+            }
+        }
     }
 
 }

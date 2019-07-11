@@ -1,13 +1,12 @@
 package ru.jihor.example.mapping
 
-import org.mapstruct.InheritInverseConfiguration
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 import ru.jihor.example.model.request.RequestBusinessData
 import ru.jihor.example.model.response.ResponseBusinessData
 
-typealias SystemARequest = com.system_a.fico_scoring.Request
-typealias SystemAResponse= com.system_a.fico_scoring.Response
+typealias SystemARequest = com.system_a.fico_scoring.FicoRequestType
+typealias SystemAResponse= com.system_a.fico_scoring.FicoResponseType
 /**
  *
  * @author jihor (jihor@ya.ru)

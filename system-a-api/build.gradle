@@ -4,22 +4,27 @@ plugins {
 
 dependencies {
     def jaxWsLibs = ['com.sun.xml.bind:jaxb-xjc',
-            'javax.xml.bind:jaxb-api',
-            'javax.xml.ws:jaxws-api',
-            'org.apache.cxf:cxf-rt-wsdl',
-            'javax.jws:javax.jws-api']
+                     'javax.xml.bind:jaxb-api',
+                     'javax.xml.ws:jaxws-api',
+                     'org.apache.cxf:cxf-rt-wsdl',
+                     'javax.jws:javax.jws-api']
     wsdl2java jaxWsLibs
     implementation jaxWsLibs
 }
-
+// TODO: maybe use asyncMethods, see https://cxf.apache.org/docs/wsdl-to-java.html
+// Look into implementation,
 wsdl2javaExt {
     cxfVersion = property("cxfVersion")
 }
 
+def wsdlDir = "$projectDir/src/main/resources/wsdl"
 wsdl2java {
+
     wsdlsToGenerate = [[
                                "-validate",
+                               "-verbose",
+                               "-xjc", "-b", "$wsdlDir/bindings.xjb", // "using -asyncMethods didn't work for me"
                                "-wsdlLocation", "wsdl/FicoService.wsdl",
-                               "$projectDir/src/main/resources/wsdl/FicoService.wsdl"
+                               "$wsdlDir/FicoService.wsdl"
                        ]]
 }

@@ -12,9 +12,10 @@ Uses Spring Boot 5, Java 11, Kotlin 1.3
 * MapStruct
 * "External" REST service invocation using WebClient
 * SpEL Gates
+* Async SOAP invocation
+* Merge 2 async responses using Reactor
 
 ### To do:
-* Merge 2 async responses using Reactor
 * Add logging, for God's sake!
 * Error handling in async actions
 * ~~Hystrix~~ Resilience4j
@@ -23,7 +24,7 @@ Uses Spring Boot 5, Java 11, Kotlin 1.3
 * Docker-compose to run the whole thing
 
 ### Try:
-* "External" SOAP service invocation using Soap Async API (what's it called?)
+* "External" SOAP service invocation using Web Client's Soap Async API (what's it called?) instead of generated WSDL methods
 * Coroutines instead of reactive pipes (https://stackoverflow.com/questions/55684117/how-to-return-a-kotlin-coroutines-flow-in-spring-reactive-webclient)
 
 ### How to start
