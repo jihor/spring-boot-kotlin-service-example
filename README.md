@@ -14,9 +14,9 @@ Uses Spring Boot 5, Java 11, Kotlin 1.3
 * SpEL Gates
 * Async SOAP invocation
 * Merge 2 async responses using Reactor
+* Minimal logging w/Log4j2 
 
 ### To do:
-* Add logging, for God's sake!
 * Error handling in async actions
 * ~~Hystrix~~ Resilience4j
 * Base UI 

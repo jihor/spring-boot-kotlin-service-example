@@ -3,6 +3,7 @@ package ru.jihor.example.mocks;
 import com.system_a.fico_scoring.FicoRequestType;
 import com.system_a.fico_scoring.FicoResponseType;
 import com.system_a.fico_scoring.FicoService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.cxf.jaxws.ServerAsyncResponse;
 import org.springframework.stereotype.Service;
 
@@ -22,26 +23,23 @@ import java.util.concurrent.Future;
         name = "FicoService"
 )
 @Service
+@Slf4j
 public class FicoServiceImpl implements FicoService {
     @Override
     public Response<FicoResponseType> getScoreAsync(FicoRequestType ficoRequest) {
-        return getServerAsyncResponse(ficoRequest);
+        log.error("getScoreAsync invoked");
+        throw new RuntimeException("Should not reach here");
     }
 
     @Override
     public Future<?> getScoreAsync(FicoRequestType ficoRequest, AsyncHandler<FicoResponseType> asyncHandler) {
-        return CompletableFuture.runAsync(
-                () -> asyncHandler.handleResponse(getServerAsyncResponse(ficoRequest)));
-    }
-
-    private ServerAsyncResponse<FicoResponseType> getServerAsyncResponse(FicoRequestType ficoRequest) {
-        ServerAsyncResponse<FicoResponseType> asyncResponse = new ServerAsyncResponse<>();
-        asyncResponse.set(getScore(ficoRequest));
-        return asyncResponse;
+        log.error("getScoreAsync invoked");
+        throw new RuntimeException("Should not reach here");
     }
 
     @Override
     public FicoResponseType getScore(FicoRequestType ficoRequest) {
+        log.info("getScore invoked");
         FicoResponseType response = new FicoResponseType();
         BigDecimal age = new BigDecimal(ficoRequest.getAge());
         BigDecimal startValue = BigDecimal.valueOf(600);

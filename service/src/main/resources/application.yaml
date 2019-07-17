@@ -1,5 +1,5 @@
 cxf.path: /soap-api
 spring:
   spelgates:
-    restEndpointGate: "#request.getBusinessData().getFirstName().startsWith('A')"
-    soapEndpointGate: "#request.getBusinessData().getFirstName().startsWith('M')"
+    restEndpointGate: "!#request.getBusinessData().getFirstName().startsWith('A')"
+    soapEndpointGate: "!#request.getBusinessData().getFirstName().startsWith('B')"

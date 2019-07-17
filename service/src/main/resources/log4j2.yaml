@@ -1,0 +1,20 @@
+Configuration:
+
+  Appenders:
+    Console:
+      name: STDOUT
+      PatternLayout:
+        Pattern: "%clr{%d}{faint} %clr{[%15.15t]}{faint} %clr{%-40.40c{1.}}{cyan} %clr{:}{faint} %m %clr{%X}{faint}%n"
+
+  Loggers:
+    logger:
+      -
+        name: businessOperationLogger
+        level: INFO
+        additivity: false
+        AppenderRef:
+          ref: STDOUT
+    Root:
+      level: INFO
+      AppenderRef:
+        ref: STDOUT
