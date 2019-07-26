@@ -15,8 +15,10 @@ Uses Spring Boot 5, Java 11, Kotlin 1.3
 * Async SOAP invocation
 * Merge 2 async responses using Reactor
 * Minimal logging w/Log4j2 
+* Generate classes using OpenAPI spec
 
 ### To do:
+* Generate Spring Boot RestController, see https://github.com/OpenAPITools/openapi-generator/wiki/Server-stub-generator-HOWTO#java-springboot (probably will generate a lot of classes, should try to exclude everything but the RestController)
 * Error handling in async actions
 * ~~Hystrix~~ Resilience4j
 * Base UI 

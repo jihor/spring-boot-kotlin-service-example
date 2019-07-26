@@ -2,8 +2,8 @@ package ru.jihor.example.mapping
 
 import org.mapstruct.Mapper
 import org.mapstruct.Mapping
-import ru.jihor.example.model.request.RequestBusinessData
-import ru.jihor.example.model.response.ResponseBusinessData
+import ru.jihor.example.model.RequestBusinessData
+import ru.jihor.example.model.ResponseBusinessData
 
 typealias SystemARequest = com.system_a.fico_scoring.FicoRequestType
 typealias SystemAResponse= com.system_a.fico_scoring.FicoResponseType

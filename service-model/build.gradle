@@ -1,7 +1,37 @@
+plugins {
+    id "org.openapi.generator" version "4.0.3"
+}
+
 // service model should be java8 compatible (because it used by external systems written on java8)
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     implementation "io.swagger:swagger-annotations"
+    implementation 'com.google.code.gson:gson'
+    implementation 'javax.xml.ws:jaxws-api'
 }
+
+openApiGenerate {
+    inputSpec = "$projectDir/src/main/swagger/spec.yml"
+    generatorName = "java"
+    modelPackage = "ru.jihor.example.model"
+    outputDir = "$projectDir/build/generated"
+    configOptions = [
+            dateLibrary: "java8"
+    ]
+    typeMappings = [
+            "OffsetDateTime": "java.time.LocalDateTime",
+            "Double": "java.math.BigDecimal"
+            ]
+    systemProperties = [
+            models: "",
+            modelDocs: "false",
+            modelTests: "false",
+            apis: "false"
+    ]
+}
+
+sourceSets.main.java.srcDirs += "build/generated/src/main/java"
+
+compileJava.dependsOn tasks.openApiGenerate

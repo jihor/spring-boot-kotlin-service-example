@@ -1,6 +1,6 @@
 package ru.jihor.example.system
 
-import ru.jihor.example.model.request.Request
+import ru.jihor.example.model.Request
 
 /**
  *

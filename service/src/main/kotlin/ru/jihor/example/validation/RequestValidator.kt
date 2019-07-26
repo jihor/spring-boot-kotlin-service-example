@@ -2,7 +2,7 @@ package ru.jihor.example.validation
 
 import org.springframework.stereotype.Service
 import ru.jihor.example.ResponseCodes.VALIDATION_FAILED
-import ru.jihor.example.model.request.Request
+import ru.jihor.example.model.Request
 
 @Service
 class RequestValidator {

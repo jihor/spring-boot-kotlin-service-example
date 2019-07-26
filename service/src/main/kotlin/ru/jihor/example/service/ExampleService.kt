@@ -6,9 +6,9 @@ import reactor.core.publisher.Mono
 import ru.jihor.example.feign.SystemBFeignClient
 import ru.jihor.example.mapping.SystemAMapper
 import ru.jihor.example.mapping.SystemBMapper
-import ru.jihor.example.model.request.Request
-import ru.jihor.example.model.response.Response
-import ru.jihor.example.model.response.ResponseBusinessData
+import ru.jihor.example.model.Request
+import ru.jihor.example.model.Response
+import ru.jihor.example.model.ResponseBusinessData
 import ru.jihor.example.util.successfulResponse
 
 typealias SystemAService = com.system_a.fico_scoring.FicoService

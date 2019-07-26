@@ -1,8 +1,8 @@
 package ru.jihor.example.endpoint
 
 import org.springframework.stereotype.Service
-import ru.jihor.example.model.request.Request
-import ru.jihor.example.model.response.Response
+import ru.jihor.example.model.Request
+import ru.jihor.example.model.Response
 import ru.jihor.example.service.ExampleService
 import ru.jihor.example.util.badRequestResponse
 import ru.jihor.example.util.exceptionResponse

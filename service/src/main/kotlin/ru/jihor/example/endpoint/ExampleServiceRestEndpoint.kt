@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import ru.jihor.example.model.request.Request
-import ru.jihor.example.model.response.Response
+import ru.jihor.example.model.Request
+import ru.jihor.example.model.Response
 import ru.jihor.spelgates.SpelGate
 
 /**

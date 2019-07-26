@@ -1,8 +1,8 @@
 package ru.jihor.example.endpoint
 
 import org.springframework.stereotype.Service
-import ru.jihor.example.model.request.Request
-import ru.jihor.example.model.response.Response
+import ru.jihor.example.model.Request
+import ru.jihor.example.model.Response
 import ru.jihor.example.soap.ExampleServiceSoapEndpoint
 import ru.jihor.spelgates.SpelGate
 import javax.jws.WebService

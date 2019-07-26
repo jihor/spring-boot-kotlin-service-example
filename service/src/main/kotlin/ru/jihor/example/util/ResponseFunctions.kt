@@ -2,10 +2,10 @@ package ru.jihor.example.util
 
 import org.springframework.validation.ObjectError
 import ru.jihor.example.ResponseCodes.*
-import ru.jihor.example.model.request.Request
-import ru.jihor.example.model.response.Response
-import ru.jihor.example.model.response.ResponseBusinessData
-import ru.jihor.example.model.response.ResponseTechData
+import ru.jihor.example.model.Request
+import ru.jihor.example.model.Response
+import ru.jihor.example.model.ResponseBusinessData
+import ru.jihor.example.model.ResponseTechData
 import ru.jihor.example.validation.CodedErrors
 import java.math.BigDecimal
 import java.time.LocalDateTime
